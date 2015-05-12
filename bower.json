@@ -1,0 +1,12 @@
+{
+  "name": "backseat",
+  "version": "0.1.0",
+  "dependencies": {
+    "bootstrap-sass-official": "~3.2.0",
+    "jquery": "~2.1.0",
+    "backbone": "~1.1.0",
+    "requirejs": "~2.1.10",
+    "jquery-ui": "~1.10.3"
+  },
+  "devDependencies": {}
+}

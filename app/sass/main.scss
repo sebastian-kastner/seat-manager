@@ -1,0 +1,26 @@
+//@import 'bower_components/bootstrap-sass-official/assets/_bootstrap.scss';
+@import 'app/bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss';
+$icon-font-path: "bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+
+#abgeordnete {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 500px;
+}
+
+.party {
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+}
+
+.member {
+    cursor: pointer;
+}
+
+.dropdown-menu li input[type='checkbox'] {
+    margin: 5px;
+}
+
+.dropdown-menu li label {
+    font-weight: normal;
+}

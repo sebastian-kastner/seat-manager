@@ -1,0 +1,20 @@
+{
+  "name": "Sitzplan-Manager",
+  "version": "0.1.0",
+  "author": "Sebastian Kastner",
+  "private": true,
+  "devDependencies": {
+    "grunt": ">0.4.0",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-cssc": "*",
+    "grunt-htmlhint": "*",
+    "matchdep": "*",
+    "bower": "~1.4.1",
+    "grunt-bower-requirejs": "~2.0.0",
+    "grunt-contrib-requirejs": "~0.4.4",
+    "grunt-processhtml": "~0.3.7"
+  }
+}
