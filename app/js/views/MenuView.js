@@ -62,7 +62,7 @@ define([
         render: function () {
             return this;
         },
-        hideMembersWithSeat: function (menu, hide) {
+        hideMembersWithSeat: function (hide) {
             App.hideMembersWithSeat = hide;
             App.searchFilter.filterMembers();
         },
