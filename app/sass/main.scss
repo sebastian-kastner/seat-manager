@@ -1,11 +1,13 @@
 //@import 'bower_components/bootstrap-sass-official/assets/_bootstrap.scss';
+//$icon-font-path: "app/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 @import 'app/bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss';
-$icon-font-path: "bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+
 
 #abgeordnete {
     overflow-y: auto;
     overflow-x: visible;
     max-height: 500px;
+    margin-top: 5px;
 }
 
 .party {

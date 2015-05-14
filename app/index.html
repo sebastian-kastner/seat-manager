@@ -14,20 +14,35 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a id="save" href="#">Speichern</a></li>
-                        <li><a id="import" href="#">Importieren</a></li>
+                        <li>
+                            <a href="#" id="save" class="btn">
+                                <span class="glyphicon glyphicon-floppy-disk"></span> 
+                                Speichern
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="import" class="btn">
+                                <span class="glyphicon glyphicon-import"></span> 
+                                Importieren
+                            </a>
+                        </li>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <span class="glyphicon glyphicon-export"></span> 
                                 Exportieren
                                 <span class="caret"></span>
                             </a>
+
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#" id="exportAsText">Als Text exportieren</a></li>
                                 <li><a href="#" id="exportAsImage">Als Bild exportieren</a></li>
                             </ul>
                         </li>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <span class="glyphicon glyphicon-picture"></span> 
                                 Ansicht
                                 <span class="caret"></span>
                             </a>
@@ -306,7 +321,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- build:js app.min.js -->
         <script data-main="js/main" src="bower_components/requirejs/require.js"></script>
         <script src="require_config.js"></script>
