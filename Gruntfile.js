@@ -52,12 +52,12 @@ module.exports = function (grunt) {
                     include: [
                         "main.js",
                         "../bower_components/requirejs/require.js",
-                        '../bower_components/jquery/dist/jquery.js',
-                        '../bower_components/backbone/backbone.js',
-                        '../bower_components/underscore/underscore.js',
-                        '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-                        '../bower_components/jquery-ui/ui/jquery-ui.js',
-                        '../bower_components/jquery-ui/ui/jquery.ui.draggable.js'
+//                        '../bower_components/jquery/dist/jquery.js',
+//                        '../bower_components/backbone/backbone.js',
+//                        '../bower_components/underscore/underscore.js',
+//                        '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+//                        '../bower_components/jquery-ui/ui/jquery-ui.js',
+//                        '../bower_components/jquery-ui/ui/jquery.ui.draggable.js'
                     ],
                     out: "app/build/app.min.js"
                 }
@@ -125,6 +125,19 @@ module.exports = function (grunt) {
                 }
             }
         },
+        clean: {
+            build: ["app/build/*"],
+            css: ["app/build/css/*.css.map"],
+            cssDev : ["app/css/*.css.map"]
+        },
+        copy: {
+            main: {
+                files: [
+                    {expand: true, cwd: 'path/', src: ['**'], dest: 'dest/'}
+                    //{expand: true, src: ['app/fonts/bootstrap/*'], dest: 'app/build/fonts/bootstrap', filter : 'isFile'}
+                ]
+            }
+        },
         //run tasks upon file changes
         watch: {
             css: {
@@ -137,8 +150,8 @@ module.exports = function (grunt) {
     grunt.registerTask('default', []);
 
     grunt.registerTask('buildcss:build', ['sass:build', 'cssc:build', 'cssmin']);
-    grunt.registerTask('buildcss:dev', ['sass:dev', 'cssc:dev']);
+    grunt.registerTask('buildcss:dev', ['sass:dev', 'cssc:dev', 'clean:cssDev']);
 
-    grunt.registerTask('build', ['requirejs', 'processhtml', 'buildcss:build']);
+    grunt.registerTask('build', ['processhtml', 'requirejs', 'buildcss:build']);
 
 };

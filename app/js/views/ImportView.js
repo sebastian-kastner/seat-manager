@@ -69,6 +69,7 @@ und wenden Sie sich gegebenfalls an den Support", 10000, true);
                 party.render();
             });
 
+            App.searchFilter.filterMembers();
             var notification = new NotificationView("Die Daten wurden erfolgreich importiert", 7000);
             notification.show();
         }

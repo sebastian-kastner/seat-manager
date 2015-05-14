@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,KAAM;EACF,OAAO,EAAG,IAAI;;AAGlB,QAAS;EACL,OAAO,EAAG,IAAI",
-"sources": ["../sass/print.scss"],
-"names": [],
-"file": "print.css"
-}

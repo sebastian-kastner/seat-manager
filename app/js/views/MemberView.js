@@ -115,9 +115,14 @@ define([
             this.model.set("seat", null);
         },
         handleSeatChange: function (seat) {
-            if (seat && App.hideMembersWithSeat) {
+            //dont hide if the filter matches the member
+            if(App.searchFilter.isSet() && App.searchFilter.matchesMember(this)) {
+                this.show();
+            } else if (seat && App.hideMembersWithSeat) {
+                //hide if it has a seat assigned and members with seats shall be hidden
                 this.hide();
             } else {
+                //show in any other case
                 this.show();
             }
         },
