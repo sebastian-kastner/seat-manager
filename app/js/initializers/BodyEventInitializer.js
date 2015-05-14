@@ -27,7 +27,9 @@ define([
                 App.draggedMember.assignToSeat(App.hoveredSeat);
             } else if (App.memberListHovered) {
                 var memberView = getMemberView(App.draggedMember);
-                memberView.removeFromSeat();
+                if (memberView) {
+                    memberView.removeFromSeat();
+                }
             }
 
             App.clickedSeat = null;
@@ -37,8 +39,12 @@ define([
         }
 
         function getMemberView(memberModel) {
-            var memberId = memberModel.get("member_id");
-            return App.views.members[memberId];
+            if (memberModel && memberModel.get) {
+                var memberId = memberModel.get("member_id");
+                return App.views.members[memberId];
+            } else {
+                return null;
+            }
         }
 
         function moveDraggedSeatCaption(ev) {
@@ -46,8 +52,8 @@ define([
             App.draggedSeatContainer.css("top", (ev.pageY + 10) + "px");
         }
     }
-    
+
     return {
-        initialize : initialize
+        initialize: initialize
     };
 });

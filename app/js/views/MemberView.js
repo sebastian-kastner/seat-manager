@@ -12,18 +12,44 @@ define([
         tagName: 'div',
         render: function () {
             var el = $(this.template(this.model.toJSON())).appendTo(this.parent);
+            this.elementIndex = el.index();
+            
             this.setElement(el);
             var memberView = this;
 
             this.$el.draggable({
                 start: function () {
-                    $(this).css("pointer-events", "none");
+                    var draggedDiv = $(this);
+                    draggedDiv.css({
+                        "pointer-events": "none"
+                    });
+
+                    var offset = draggedDiv.offset();
+                    var dragContainer = $("<div>");
+                    dragContainer.css({
+                        position: "absolute",
+                        top: offset.top - window.scrollY,
+                        left: offset.left - window.scrollX
+                    });
+                    $("body").append(dragContainer);
+
+                    draggedDiv.detach();
+                    dragContainer.append(draggedDiv);
+                    
                     App.isDragMode = true;
                     App.draggedMember = memberView;
                 },
                 stop: function () {
-                    $(this).css("pointer-events", "auto");
+                    var draggedDiv = $(this);
+                    var parent = draggedDiv.parent();
+                    
+                    draggedDiv.detach();
+                    parent.remove();
+                    
+                    $("#abgeordnete div").eq(memberView.elementIndex).before(draggedDiv);
+                    draggedDiv.css("pointer-events", "auto");
                     memberView.assignToSeat(App.hoveredSeat);
+                    
                     App.isDragMode = false;
                     App.draggedMember = null;
                 },
@@ -56,7 +82,7 @@ define([
                 }
             }
             var seatModel = null;
-            if(seatView) {
+            if (seatView) {
                 seatModel = seatView.model;
             }
             this.model.setSeat(seatModel);

@@ -1336,9 +1336,9 @@ th.visible-print,td.visible-print{display:table-cell!important;}
 .visible-print-inline-block{display:inline-block!important;}
 .hidden-print{display:none!important;}
 }
-#abgeordnete{overflow-y:scroll;overflow-x:hidden;max-height:500px;}
+#abgeordnete{overflow-y:auto;overflow-x:visible;max-height:500px;}
 .party{font-weight:bold;margin:10px 0 5px 0;}
-.member{cursor:pointer;}
+.member{cursor:pointer;height:20px;}
 .dropdown-menu li input[type='checkbox']{margin:5px;}
 .dropdown-menu li label{font-weight:normal;}
 #menu .dropdown-menu{width:275px;}

@@ -3,8 +3,8 @@
 $icon-font-path: "bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 
 #abgeordnete {
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-x: visible;
     max-height: 500px;
 }
 
@@ -15,6 +15,7 @@ $icon-font-path: "bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 
 .member {
     cursor: pointer;
+    height: 20px;
 }
 
 .dropdown-menu li input[type='checkbox'] {
