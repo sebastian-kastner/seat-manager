@@ -48,6 +48,14 @@ define([
             this.showMemberName();
             this.showMemberImg();
         },
+        removeHighlight: function () {
+            if (!App.showMemberImages) {
+                this.hideMemberImage();
+            }
+            if (!App.showShortMemberNames) {
+                this.hideMemberName();
+            }
+        },
         showMemberName: function () {
             var member = this.model.get("member");
             if (!member) {
@@ -121,13 +129,7 @@ define([
                 }
 
                 this.update();
-
-                if (!App.showMemberImages) {
-                    this.hideMemberImage();
-                }
-                if (!App.showShortMemberNames) {
-                    this.hideMemberName();
-                }
+                this.removeHighlight();
             },
             mousedown: function (ev) {
                 App.clickedSeat = this;
@@ -150,14 +152,14 @@ define([
         }
 
         var x = seat.$el.attr("x");
-        
+
         //FIXME very very hacky and unprecise positioning of texts for different modes
-        if(App.showShortMemberNames) {
+        if (App.showShortMemberNames) {
             x = x + 8;
         } else {
             x = x - 35;
         }
-        
+
         var y = seat.$el.attr("y") - 5;
 
         var transform = seat.$el.attr("transform");

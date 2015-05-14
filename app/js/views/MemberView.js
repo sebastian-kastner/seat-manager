@@ -62,6 +62,27 @@ define([
             });
             return this;
         },
+        events : {
+            mouseover : function() {
+                var seatView = this.getSeatView();
+                if(seatView) {
+                    seatView.highlight();
+                }
+            },
+            mouseout : function() {
+                var seatView = this.getSeatView();
+                if(seatView) {
+                    seatView.removeHighlight();
+                }
+            }
+        },
+        getSeatView : function() {
+            var seat = this.model.get("seat");
+            if(!seat) {
+                return;
+            }
+            return App.views.seats[seat.get("seat_id")];
+        },
         assignToSeat: function (seatView) {
             if (seatView) {
                 var memberOnNewSeat = seatView.model.get("member");
