@@ -18,7 +18,7 @@ define([
         filterMembers: function () {
             var filter = this.$el.val();
             _.each(App.views.members, function (member) {
-                if (member.model.get("seat") && App.hideMembersWithSeat) {
+                if (!filter && member.model.get("seat") && App.hideMembersWithSeat) {
                     member.hide();
                 } else {
                     if (!filter || filter === "") {
