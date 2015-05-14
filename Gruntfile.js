@@ -89,7 +89,8 @@ module.exports = function (grunt) {
                     consolidateMediaQueries: true
                 },
                 files: {
-                    'app/build/css/main.css': 'app/build/css/main.css'
+                    'app/build/css/main.css': 'app/build/css/main.css',
+                    'app/build/css/print.css': 'app/build/css/print.css'
                 }
             },
             dev: {
@@ -99,7 +100,8 @@ module.exports = function (grunt) {
                     consolidateMediaQueries: true
                 },
                 files: {
-                    'app/css/main.css': 'app/css/main.css'
+                    'app/css/main.css': 'app/css/main.css',
+                    'app/css/print.css': 'app/css/print.css'
                 }
             }
         },
@@ -112,12 +114,14 @@ module.exports = function (grunt) {
         sass: {
             build: {
                 files: {
-                    'app/build/css/main.css': 'app/sass/main.scss'
+                    'app/build/css/main.css': 'app/sass/main.scss',
+                    'app/build/css/print.css': 'app/sass/print.scss'
                 }
             },
             dev: {
                 files: {
-                    'app/css/main.css': 'app/sass/main.scss'
+                    'app/css/main.css': 'app/sass/main.scss',
+                    'app/css/print.css': 'app/sass/print.scss'
                 }
             }
         },

@@ -24,3 +24,15 @@ $icon-font-path: "bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 .dropdown-menu li label {
     font-weight: normal;
 }
+
+#menu .dropdown-menu {
+    width : 275px;
+}
+
+.notification {
+    position : fixed;
+    border: 1px solid darkgray;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+}

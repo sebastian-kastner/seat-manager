@@ -2,10 +2,17 @@ define([
     'backbone',
     'jquery',
     'views/ImportView',
-    'data/DataExporter'
-], function (Backbone, $, ImportView, Exporter) {
+    'data/DataExporter',
+    'views/NotifactionView'
+], function (Backbone, $, ImportView, Exporter, NotificationView) {
     var Menu = {};
     var Menu = Backbone.View.extend({
+        initialize: function () {
+            $("#showShortnames").attr("checked", App.showShortMemberNames);
+            $("#showMemberImages").attr("checked", App.showMemberImages);
+            $("#hideMembersWithSeat").attr("checked", App.hideMembersWithSeat);
+            $("#flip").attr("checked", App.isFlipped);
+        },
         events: {
             "click #save": function () {
                 this.save();
@@ -38,16 +45,16 @@ define([
                 var data = "image/svg+xml;charset=utf-8," + encodeURIComponent(svg.html());
                 exportButton.attr("href", 'data:' + data);
                 exportButton.attr("download", "sitzplan.svg");
-            }, 
-            "click #showMemberImages" : function (ev) {
+            },
+            "click #showMemberImages": function (ev) {
                 App.showMemberImages = ev.currentTarget.checked;
-                _.each(App.views.seats, function(seatView) {
+                _.each(App.views.seats, function (seatView) {
                     seatView.update();
                 });
             },
-            "click #showShortnames" : function (ev) {
+            "click #showShortnames": function (ev) {
                 App.showShortMemberNames = ev.currentTarget.checked;
-                _.each(App.views.seats, function(seatView) {
+                _.each(App.views.seats, function (seatView) {
                     seatView.update();
                 });
             }
@@ -55,31 +62,17 @@ define([
         render: function () {
             return this;
         },
-        filterMembers: function () {
-            var filter = App.searchFilterField.val();
-            _.each(App.views.members, function (member) {
-                if (member.model.get("seat") && App.hideMembersWithSeat) {
-                    member.hide();
-                } else {
-                    if (!filter || filter === "") {
-                        member.show();
-                    }
-                    var name = member.model.get("fullname");
-                    if (name.toLowerCase().indexOf(filter.toLowerCase()) !== -1) {
-                        member.show();
-                    } else {
-                        member.hide();
-                    }
-                }
-            });
-        },
         hideMembersWithSeat: function (menu, hide) {
             App.hideMembersWithSeat = hide;
-            this.filterMembers();
+            App.searchFilter.filterMembers();
         },
         save: function () {
             var data = Exporter();
             sessionStorage.setItem("seatingData", JSON.stringify(data));
+            var notification = new NotificationView("Die Sitzplandaten wurden erfolgreich \n\
+                                                     im Browsercache gespeichert", 7000);
+            notification.show();
+            return;
         }
     });
     function flip(flipped) {

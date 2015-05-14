@@ -32,6 +32,11 @@ define([
     }
 
     function createMembersAndParties(sortedData, data) {
+        var parteienMap = {};
+        _.each(data.parteien, function(partei) {
+            parteienMap[partei.name] = partei.color;
+        });
+        
         _.each(sortedData, function (item) {
             var party = null;
             for (var key in App.models.parties) {
@@ -42,7 +47,7 @@ define([
             if (!party) {
                 party = new Party({
                     name: item.fraktion,
-                    color : data.parteien[item.fraktion],
+                    color : parteienMap[item.fraktion],
                     members : []
                 });
                 App.models.parties[party.get("name")] = party;

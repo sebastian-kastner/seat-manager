@@ -13,6 +13,8 @@ define([
             this.$el.attr("fill", emptyColor);
 
             this.model.on("change:member", function () {
+                self.hideMemberName();
+                self.hideMemberImage();
                 self.update();
             });
         },

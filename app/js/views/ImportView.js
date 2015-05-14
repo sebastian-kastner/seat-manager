@@ -3,16 +3,18 @@ define([
     'underscore',
     'jquery',
     'data/DataLoader',
-    'vendor/backbone.bootstrap-modal',
-], function (Backbone, _, $, DataLoader) {
+    'views/NotifactionView',
+    'vendor/backbone.bootstrap-modal'
+], function (Backbone, _, $, DataLoader, NotificationView) {
     var ImportView = Backbone.View.extend({
         tagName: 'p',
         importFile: null,
         template: '\
-    Wählen sie eine Datei die sie über die Exportieren als Text \n\
-    Funktion erzeugt haben oder die sie vom Support erhalten haben\n\
+    Wählen sie eine Datei vom Typ .json oder .txt um Sitzplandaten zu importieren. \n\
+    Diese Daten können sie über die "Exportieren als Text" \n\
+    Funktion erzeugen oder erhalten Sie von ihrem Support\n\
     <br><br>\
-    <input type="file" id="importFileUpload" name="files[]"/>',
+    <input type="file" id="importFileUpload" accept=".json,.txt" name="files[]"/>',
         render: function () {
             this.$el.html(this.template);
             return this;
@@ -45,21 +47,30 @@ define([
 
     function onSubmit() {
         if (view.importFile) {
-            var data = JSON.parse(view.importFile);
-            if (data) {
-                App.views.parties = {};
-                App.views.members = {};
-                App.models.parties = {};
-                App.models.members = {};
-                $("#abgeordnete").empty();
-                _.each(App.models.seats, function (seat) {
-                    seat.set("member", null);
-                });
-                DataLoader(data);
-                _.each(App.views.parties, function (party) {
-                    party.render();
-                });
+            try {
+                var data = JSON.parse(view.importFile);
+            } catch (err) {
+                var notification = new NotificationView("\
+Die Daten konnten nicht erfolgreich importiert werden, bitte prüfen Sie das Dateiformat \n\
+und wenden Sie sich gegebenfalls an den Support", 10000, true);
+                notification.show();
+                return;
             }
+            App.views.parties = {};
+            App.views.members = {};
+            App.models.parties = {};
+            App.models.members = {};
+            $("#abgeordnete").empty();
+            _.each(App.models.seats, function (seat) {
+                seat.set("member", null);
+            });
+            DataLoader(data);
+            _.each(App.views.parties, function (party) {
+                party.render();
+            });
+
+            var notification = new NotificationView("Die Daten wurden erfolgreich importiert", 7000);
+            notification.show();
         }
     }
 

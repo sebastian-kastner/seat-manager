@@ -3,10 +3,13 @@ define([
 ], function (_) {
     var exportData = function () {
         var data = {};
-        data.parteien = {};
+        data.parteien = [];
         data.abgeordnete = [];
         _.each(App.models.parties, function (party) {
-            data.parteien[party.get("name")] = party.get("color");
+            data.parteien.push({
+                name : party.get("name"),
+                color : party.get("color")
+            });
         });
         _.each(App.models.members, function (member) {
             var memberObj = {
