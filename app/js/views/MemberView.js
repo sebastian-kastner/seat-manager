@@ -28,8 +28,8 @@ define([
                     var dragContainer = $("<div>");
                     dragContainer.css({
                         position: "absolute",
-                        top: offset.top - window.scrollY,
-                        left: offset.left - window.scrollX
+                        top: offset.top,
+                        left: offset.left
                     });
                     $("body").append(dragContainer);
 
