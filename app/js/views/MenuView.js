@@ -5,12 +5,10 @@ define([
     'data/DataExporter',
     'views/NotifactionView'
 ], function (Backbone, $, ImportView, Exporter, NotificationView) {
-    var Menu = {};
     var Menu = Backbone.View.extend({
         initialize: function () {
             $("#showShortnames").attr("checked", App.showShortMemberNames);
             $("#showMemberImages").attr("checked", App.showMemberImages);
-            $("#hideMembersWithSeat").attr("checked", App.hideMembersWithSeat);
             $("#flip").attr("checked", App.isFlipped);
         },
         events: {
@@ -19,9 +17,6 @@ define([
             },
             "click #flip": function (ev) {
                 flip(ev.currentTarget.checked);
-            },
-            "click #hideMembersWithSeat": function (ev) {
-                this.hideMembersWithSeat(ev.currentTarget.checked);
             },
             "click #import": function () {
                 ImportView.show();
@@ -61,10 +56,6 @@ define([
         },
         render: function () {
             return this;
-        },
-        hideMembersWithSeat: function (hide) {
-            App.hideMembersWithSeat = hide;
-            App.searchFilter.filterMembers();
         },
         save: function () {
             var data = Exporter();

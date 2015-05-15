@@ -32,6 +32,12 @@
     width : 275px;
 }
 
+#sidebar .dropdown-toggle {
+    padding: 0 5px 0 0;
+    color: #777;
+    bottom: 1px;
+}
+
 .notification {
     position : fixed;
     border: 1px solid darkgray;

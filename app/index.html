@@ -48,11 +48,6 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <input type="checkbox" id="hideMembersWithSeat" checked>
-                                    <label for="hideMembersWithSeat">Abgeordnete mit Sitz ausblenden</label>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
                                     <input type="checkbox" id="showMemberImages">
                                     <label for="showMemberImages">Abgeordneten-Portraits immer zeigen</label>
                                 </li>
@@ -302,7 +297,22 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Abgeordnete</h3>
+                            <h3 class="panel-title">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-wrench"></span> 
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" style="width:250px">
+                                            <li>
+                                                <input type="checkbox" id="hideMembersWithSeat" checked>
+                                                <label for="hideMembersWithSeat">Abgeordnete mit Sitz ausblenden</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                Abgeordnete
+                            </h3>
                         </div>
                         <div class="panel-body" id="member-list">
                             <div class="input-group">

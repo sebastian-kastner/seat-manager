@@ -1342,4 +1342,5 @@ th.visible-print,td.visible-print{display:table-cell!important;}
 .dropdown-menu li input[type='checkbox']{margin:5px;}
 .dropdown-menu li label{font-weight:normal;}
 #menu .dropdown-menu{width:275px;}
+#sidebar .dropdown-toggle{padding:0 5px 0 0;color:#777;bottom:1px;}
 .notification{position:fixed;border:1px solid darkgray;background:white;padding:10px;border-radius:5px;}
