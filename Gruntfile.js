@@ -27,59 +27,6 @@ module.exports = function (grunt) {
     grunt.initConfig({
         //define package.json to be used
         pkg: grunt.file.readJSON('package.json'),
-        //setup htmlhint
-        htmlhint: {
-            build: {
-                options: {
-                    'tag-pair': true,
-                    'tagname-lowercase': true,
-                    'attr-lowercase': true,
-                    'attr-value-double-quotes': true,
-                    'doctype-first': true,
-                    'spec-char-escape': true,
-                    'id-unique': true,
-                    'head-script-disabled': true,
-                    'style-disabled': true
-                },
-                src: ['app/index.html']
-            }
-        },
-        requirejs: {
-            compile: {
-                options: {
-                    baseUrl: "app/js",
-                    mainConfigFile: "app/require_config.js",
-                    include: [
-                        "main.js",
-                        "../bower_components/requirejs/require.js",
-//                        '../bower_components/jquery/dist/jquery.js',
-//                        '../bower_components/backbone/backbone.js',
-//                        '../bower_components/underscore/underscore.js',
-//                        '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-//                        '../bower_components/jquery-ui/ui/jquery-ui.js',
-//                        '../bower_components/jquery-ui/ui/jquery.ui.draggable.js'
-                    ],
-                    out: "app/build/app.min.js"
-                }
-            }
-        },
-        processhtml: {
-            options: {
-            },
-            dist: {
-                files: {
-                    'app/build/index.html': ['app/index.html']
-                }
-            }
-        },
-        //uglify js
-        uglify: {
-            build: {
-                files: {
-                    'app/build/js/main.min.js': ['app/js/main.js']
-                }
-            }
-        },
         //build css
         cssc: {
             build: {
@@ -89,8 +36,8 @@ module.exports = function (grunt) {
                     consolidateMediaQueries: true
                 },
                 files: {
-                    'app/build/css/main.css': 'app/build/css/main.css',
-                    'app/build/css/print.css': 'app/build/css/print.css'
+                    'build/css/main.css': 'build/css/main.css',
+                    'build/css/print.css': 'build/css/print.css'
                 }
             },
             dev: {
@@ -107,15 +54,15 @@ module.exports = function (grunt) {
         },
         cssmin: {
             build: {
-                src: 'app/build/css/main.css',
-                dest: 'app/build/css/main.css'
+                src: 'build/css/main.css',
+                dest: 'build/css/main.css'
             }
         },
         sass: {
             build: {
                 files: {
-                    'app/build/css/main.css': 'app/sass/main.scss',
-                    'app/build/css/print.css': 'app/sass/print.scss'
+                    'build/css/main.css': 'app/sass/main.scss',
+                    'build/css/print.css': 'app/sass/print.scss'
                 }
             },
             dev: {
@@ -126,16 +73,48 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            build: ["app/build/*"],
-            css: ["app/build/css/*.css.map"],
-            cssDev : ["app/css/*.css.map"]
+            build: ["build/*"],
+            css: ["build/css/*.css.map"],
+            cssDev: ["app/css/*.css.map"]
         },
         copy: {
             main: {
                 files: [
-                    {expand: true, cwd: 'path/', src: ['**'], dest: 'dest/'}
-                    //{expand: true, src: ['app/fonts/bootstrap/*'], dest: 'app/build/fonts/bootstrap', filter : 'isFile'}
+                    {cwd: 'app', src: ['fonts/**', 'js/**'], dest: 'build', expand: true},
+                    {cwd: 'app', src: ['index.html', 'require_config.js'], dest: 'build', expand: true},
+                    {
+                        cwd: 'app',
+                        src: [
+                            'bower_components/requirejs/require.js',
+                            'bower_components/jquery/dist/jquery.js',
+                            'bower_components/underscore/underscore.js',
+                            'bower_components/backbone/backbone.js',
+                            'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+                            'bower_components/jquery-ui/ui/jquery-ui.js',
+                            'bower_components/jquery-ui/ui/jquery.ui.draggable.js'
+                        ],
+                        dest: 'build',
+                        expand: true
+                    }
                 ]
+            }
+        },
+        uglify: {
+            js: {
+                cwd : 'app',
+                src: 'js/**/*.js', 
+                dest: 'build/', 
+                expand: true, 
+                flatten: false, 
+                ext: '.js'
+            },
+            bower: {
+                cwd : 'build',
+                src : 'bower_components/**/*.js',
+                dest : 'build',
+                expand : true,
+                flatten : false,
+                ext : '.js'
             }
         },
         //run tasks upon file changes
@@ -152,6 +131,6 @@ module.exports = function (grunt) {
     grunt.registerTask('buildcss:build', ['sass:build', 'cssc:build', 'cssmin']);
     grunt.registerTask('buildcss:dev', ['sass:dev', 'cssc:dev', 'clean:cssDev']);
 
-    grunt.registerTask('build', ['processhtml', 'requirejs', 'buildcss:build']);
+    grunt.registerTask('build', ['clean:build', 'buildcss:build', 'clean:css', 'copy', 'uglify:bower']);
 
 };
