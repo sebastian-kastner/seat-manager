@@ -151,31 +151,34 @@ define([
             return;
         }
 
-        var x = seat.$el.attr("x");
-
-        //FIXME very very hacky and unprecise positioning of texts for different modes
-        if (App.showShortMemberNames) {
-            x = x + 8;
-        } else {
-            x = x - 35;
-        }
-
-        var y = seat.$el.attr("y") - 5;
+        var seatWidth = parseFloat(seat.$el.attr("width"));
+        var seatX = parseFloat(seat.$el.attr("x"));
+        var seatY = parseFloat(seat.$el.attr("y")) - 7;
 
         var transform = seat.$el.attr("transform");
         if (App.isFlipped) {
             //spiegelung rückgängig machen für die text gruppe
             transform = transform + "translate(0, " + App.viewbox.height + ") scale(1, -1)";
-            y = App.viewbox.height - y + 10;
+            seatY = App.viewbox.height - seatY + 10;
         }
-
+        
         var g = _createSvgElement("g", {id: id, transform: transform});
-        var text = _createSvgElement("text", {x: x, y: y});
-
+        //append the text invisibly first so we can determine its width for pixel perfect positioning
+        var text = _createSvgElement("text", {
+            x: seatX,
+            y: seatY,
+            style : "visibility: hidden;"
+        });
         var textNode = document.createTextNode(displayText);
         text.appendChild(textNode);
         g.appendChild(text);
         nameContainer.append(g);
+        
+        var textWidth = text.getBBox().width;
+        
+        var x = seatX + (seatWidth / 2) - (textWidth / 2);
+        $(text).attr("x", x);
+        $(text).css("visibility", "visible");
     };
 
     var _createSvgElement = function (element, attributes) {
